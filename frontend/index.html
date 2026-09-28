@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SISDIG AI - Media Pembelajaran Sistem Digital</title>
+<!-- Google Fonts & FontAwesome Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* SYSTEM DESIGN VARIABLES & RESET */
+:root {
+  --bg-main: #0b0f19;
+  --bg-card: rgba(17, 24, 39, 0.75);
+  --bg-card-hover: rgba(31, 41, 55, 0.85);
+  --border-card: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(99, 102, 241, 0.3);
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --accent: #06b6d4;
+  --accent-hover: #0891b2;
+  --emerald: #10b981;
+  --rose: #f43f5e;
+  --amber: #f59e0b;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.15);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding-bottom: 50px;
+  background-image:
+    radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+.page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: rgba(11, 15, 25, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-card);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-bottom: 30px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+}
+
+.brand-text .title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.brand-text .highlight {
+  color: var(--accent);
+}
+
+.brand-text .subtitle {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-card);
+}
+
+.status-indicator .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.status-indicator.online .dot {
+  background: var(--emerald);
+  box-shadow: 0 0 8px var(--emerald);
+}
+
+.status-indicator.offline .dot {
+  background: var(--rose);
+}
+
+/* HERO BANNER */
+.hero-banner {
+  text-align: center;
+  padding: 40px 20px 50px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--accent);
+  border: 1px solid var(--border-accent);
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.hero-banner h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.hero-banner p {
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 30px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-card);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-item i {
+  color: var(--accent);
+}
+
+/* ACTION GRID */
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 35px;
+}
+
+@media (max-width: 900px) {
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.card-title-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.card-title p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.gradient-icon-1 { background: linear-gradient(135deg, var(--primary), #818cf8); }
+.gradient-icon-2 { background: linear-gradient(135deg, var(--accent), #38bdf8); }
+
+/* UPLOAD DROPZONE */
+.drop-zone {
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: var(--radius-md);
+  padding: 35px 20px;
+  text-align: center;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.drop-zone.dragover, .drop-zone:hover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.drop-icon {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.drop-zone h3 {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.drop-zone p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.divider::before, .divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.divider span { padding: 0 10px; }
+
+/* BUTTONS */
+.btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: #fff;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+}
+
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-block { width: 100%; margin-top: 15px; }
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-icon:hover {
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* MATERIALS LIST ARCHIVE */
+.search-box {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.search-box i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: var(--accent);
+}
+
+.materials-list-container {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 5px;
+}
+
+.material-card-item {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.material-card-item:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-accent);
+  transform: translateX(4px);
+}
+
+.material-info h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.material-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badge-primary {
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.btn-delete-item {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+}
+
+.btn-delete-item:hover {
+  color: var(--rose);
+}
+
+/* QUICK TOOLKIT */
+.toolkit-section {
+  margin-top: 20px;
+}
+
+.toolkit-header {
+  margin-bottom: 18px;
+}
+
+.toolkit-header h3 {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolkit-header p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.quick-converter {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 15px;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .quick-converter {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.input-group input, .input-group select {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.quick-result-box {
+  margin-top: 15px;
+  padding: 14px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92rem;
+  color: var(--accent);
+}
+
+/* LEARNING PAGE LAYOUT */
+.learning-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.module-meta {
+  text-align: center;
+}
+
+.module-meta h2 {
+  font-size: 1.4rem;
+  margin-top: 4px;
+}
+
+.reading-progress-tag {
+  font-size: 0.82rem;
+  color: var(--emerald);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.learning-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 25px;
+}
+
+@media (max-width: 900px) {
+  .learning-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* SIDEBAR MENU */
+.sidebar-header h4 {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition-fast);
+}
+
+.menu-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+}
+
+.menu-btn.active {
+  background: rgba(99, 102, 241, 0.15);
+  color: #fff;
+  border-color: var(--border-accent);
+  font-weight: 600;
+}
+
+/* MAIN CONTENT DISPLAY */
+.main-content {
+  min-height: 450px;
+}
+
+.section-content { display: none; }
+.section-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+.section-tag {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 12px;
+}
+
+.objective-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.objective-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.objective-card ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.objective-card li {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.objective-card li::before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: var(--emerald);
+}
+
+.content-paragraph {
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+/* CONVERTER INSIDE MODULE */
+.module-converter {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.steps-breakdown {
+  margin-top: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* UTILS & ANIMATIONS */
+.fade-in { animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.file-info-box {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid var(--border-accent);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin-top: 15px;
+  font-size: 0.88rem;
+}
+
+.progress-wrapper {
+  margin-top: 15px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.3s ease;
+}
+
+#progressText {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 6px;
+  text-align: right;
+}
+
+.status-message {
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP GLOBAL NAVBAR -->
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="brand-logo">
+      <i class="fa-solid fa-microchip"></i>
+    </div>
+    <div class="brand-text">
+      <span class="title">SISDIG<span class="highlight">.AI</span></span>
+      <span class="subtitle">Media Pembelajaran Interaktif</span>
+    </div>
+  </div>
+  <div class="nav-status">
+    <span class="status-indicator" id="serverStatus">
+      <span class="dot"></span>
+      <span class="text">Mengecek Server...</span>
+    </span>
+  </div>
+</nav>
+
+<!-- DASHBOARD UTAMA -->
+<div id="landingPage" class="page-container fade-in">
+  <header class="hero-banner">
+    <div class="hero-badge">
+      <i class="fa-solid fa-wand-magic-sparkles"></i> AI-Powered Digital Logic Media
+    </div>
+    <h1>Ubah Presentasi Menjadi <br><span class="gradient-text">Modul Belajar Interaktif</span></h1>
+    <p>Unggah file modul PowerPoint (PPT/PPTX) Sistem Digital Anda dan biarkan AI merancangnya menjadi modul interaktif, simulator konversi basis, dan materi ringkas.</p>
+    <div class="hero-stats">
+      <div class="stat-item"><i class="fa-solid fa-bolt"></i> Analisis Cepat</div>
+      <div class="stat-item"><i class="fa-solid fa-calculator"></i> Calculator Basis</div>
+      <div class="stat-item"><i class="fa-solid fa-layer-group"></i> Modul Per Minggu</div>
+    </div>
+  </header>
+
+  <div class="action-grid">
+    <!-- CARD 1: UPLOAD PPT -->
+    <div class="glass-card upload-card">
+      <div class="card-title">
+        <div class="card-icon gradient-icon-1"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+        <div>
+          <h2>Buat Modul Baru</h2>
+          <p>Upload file PPT/PPTX untuk diproses AI</p>
+        </div>
+      </div>
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-icon"><i class="fa-file-powerpoint"></i></div>
+        <h3>Tarik & Lepas File PPT Di Sini</h3>
+        <p>Mendukung format .ppt dan .pptx</p>
+        <div class="divider"><span>atau</span></div>
+        <button type="button" id="selectFileButton" class="btn btn-secondary">
+          <i class="fa-regular fa-folder-open"></i> Pilih File Komputer
+        </button>
+        <input type="file" id="pptInput" accept=".ppt,.pptx" hidden>
+      </div>
+
+      <div id="fileInfo" class="file-info-box" style="display: none;"></div>
+
+      <div id="progressContainer" class="progress-wrapper" style="display: none;">
+        <div class="progress-bar">
+          <div id="progressBarFill" class="progress-fill"></div>
+        </div>
+        <span id="progressText">Memproses file...</span>
+      </div>
+
+      <div id="processStatus" class="status-message"></div>
+
+      <!-- DROPDOWN MINGGU -->
+      <div style="margin: 15px 0; text-align: left;">
+        <label style="font-weight: 600; color: #fff; font-size: 0.9rem;">Pilih Minggu Ke-:</label>
+        <select id="uploadWeekSelect" name="week" style="padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; margin-left: 8px; color: #000;">
+          <option value="1">Minggu 1</option>
+          <option value="2">Minggu 2</option>
+          <option value="3">Minggu 3</option>
+          <option value="4">Minggu 4</option>
+          <option value="5">Minggu 5</option>
+          <option value="6">Minggu 6</option>
+          <option value="7">Minggu 7</option>
+          <option value="8">Minggu 8</option>
+          <option value="9">Minggu 9</option>
+          <option value="10">Minggu 10</option>
+          <option value="11">Minggu 11</option>
+          <option value="12">Minggu 12</option>
+          <option value="13">Minggu 13</option>
+          <option value="14">Minggu 14</option>
+        </select>
+      </div>
+
+      <!-- TOMBOL PROSES -->
+      <button id="processButton" class="btn btn-primary btn-block" style="display: none;">
+        <i class="fa-solid fa-microchip"></i> Proses Sekarang Dengan AI
+      </button>
+    </div>
+
+    <!-- CARD 2: ARSIP MATERI MINGGUAN -->
+    <div class="glass-card library-card">
+      <div class="card-title-between">
+        <div class="card-title">
+          <div class="card-icon gradient-icon-2"><i class="fa-solid fa-book-bookmark"></i></div>
+          <div>
+            <h2>Arsip Modul Mingguan</h2>
+            <p>Materi yang sudah pernah dibuat</p>
+          </div>
+        </div>
+        <button class="btn-icon" id="refreshMaterialsBtn" title="Refresh Daftar"><i class="fa-solid fa-arrows-rotate"></i></button>
+      </div>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Cari judul materi...">
+      </div>
+      <div id="materialsList" class="materials-list-container">
+        <div class="loading-spinner" style="text-align: center; color: var(--text-muted); padding: 20px;">
+          <i class="fa-solid fa-spinner fa-spin"></i> Memuat daftar modul...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK TOOLKIT WIDGET -->
+  <section class="toolkit-section glass-card">
+    <div class="toolkit-header">
+      <h3><i class="fa-solid fa-screwdriver-wrench"></i> Quick Tool: Kalkulator Konversi Basis Fast-Check</h3>
+      <p>Uji coba konversi basis bilangan secara instan di sini</p>
+    </div>
+    <div class="quick-converter">
+      <div class="input-group">
+        <label>Input Angka</label>
+        <input type="text" id="quickInput" placeholder="Contoh: 10110 atau 255">
+      </div>
+      <div class="input-group">
+        <label>Dari</label>
+        <select id="quickFrom">
+          <option value="2">Biner (2)</option>
+          <option value="8">Oktal (8)</option>
+          <option value="10" selected>Desimal (10)</option>
+          <option value="16">Heksadesimal (16)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Ke</label>
+        <select id="quickTo">
+          <option value="2" selected>Biner (2)</option>
+          <option value="8">Oktal (8)</option>
+          <option value="10">Desimal (10)</option>
+          <option value="16">Heksadesimal (16)</option>
+        </select>
+      </div>
+      <button class="btn btn-accent" onclick="runQuickConvert()">
+        <i class="fa-solid fa-calculator"></i> Hitung
+      </button>
+    </div>
+    <div id="quickResult" class="quick-result-box">Hasil akan muncul di sini.</div>
+  </section>
+</div>
+
+<!-- LEARNING PAGE / VIEWER MODUL INTERAKTIF -->
+<div id="learningPage" class="page-container fade-in" style="display: none;">
+  <header class="learning-header glass-card">
+    <button id="backToHomeBtn" class="btn btn-outline">
+      <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
+    </button>
+    <div class="module-meta">
+      <span id="weekBadge" class="badge badge-primary">Minggu 1</span>
+      <h2 id="moduleTitleHeader">Judul Materi</h2>
+    </div>
+    <div class="reading-progress-tag">
+      <i class="fa-solid fa-book-open"></i> Mode Belajar Active
+    </div>
+  </header>
+  <div class="learning-layout">
+    <aside class="sidebar glass-card">
+      <div class="sidebar-header">
+        <h4>DAFTAR SUB-BAB</h4>
+      </div>
+      <div id="menuContainer" class="sidebar-menu"></div>
+    </aside>
+    <main id="content" class="main-content glass-card"></main>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://sisdig-ai-backend-git-main-kael-0c2b.vercel.app";
+let quizData = [];
+let currentQuizIndex = 0;
+let selectedFile = null;
+let currentMaterialsData = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+  checkServerHealth();
+  setupUploadHandlers();
+  setupNavigation();
+  loadWeeklyMaterials();
+  setupSearchFilter();
+});
+
+setInterval(checkServerHealth, 15000);
+
+async function checkServerHealth() {
+  const statusElem = document.getElementById("serverStatus");
+  if (!statusElem) return;
+  try {
+    const response = await fetch(`${API_URL}/`, { method: "GET" });
+    if (response.ok) {
+      statusElem.className = "status-indicator online";
+      statusElem.querySelector(".text").textContent = "Backend Online";
+    } else {
+      throw new Error();
+    }
+  } catch {
+    statusElem.className = "status-indicator offline";
+    statusElem.querySelector(".text").textContent = "Backend Offline";
+  }
+}
+
+function setupNavigation() {
+  const backBtn = document.getElementById("backToHomeBtn");
+  const refreshBtn = document.getElementById("refreshMaterialsBtn");
+
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      showLandingPage();
+      loadWeeklyMaterials();
+    });
+  }
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", loadWeeklyMaterials);
+  }
+}
+
+function showLandingPage() {
+  document.getElementById("landingPage").style.display = "block";
+  document.getElementById("learningPage").style.display = "none";
+  document.title = "SISDIG AI - Media Pembelajaran Sistem Digital";
+}
+
+function showLearningPage() {
+  document.getElementById("landingPage").style.display = "none";
+  document.getElementById("learningPage").style.display = "block";
+}
+
+/* 1. Fungsi untuk mengambil data dari backend */
+async function loadWeeklyMaterials() {
+  const container = document.getElementById("materialsList");
+  if (container) {
+    container.innerHTML = '<div style="text-align:center; padding:20px; color:#94a3b8;"><i class="fa-solid fa-spinner fa-spin"></i> Memuat daftar modul...</div>';
+  }
+  try {
+    const response = await fetch(`${API_URL}/materials`);
+    if (!response.ok) throw new Error("Gagal mengambil data");
+    const data = await response.json();
+    currentMaterialsData = data;
+    renderMaterialsList(data);
+  } catch (error) {
+    console.error("Error loadWeeklyMaterials:", error);
+    if (container) {
+      container.innerHTML = '<p style="text-align:center; color:#ef4444; padding:15px;">Gagal terhubung ke backend.</p>';
+    }
+  }
+}
+
+/* 2. Fungsi untuk menampilkan daftar kartu materi */
+function renderMaterialsList(materials) {
+  const container = document.getElementById("materialsList");
+  if (!container) return;
+
+  if (!Array.isArray(materials) || materials.length === 0) {
+    container.innerHTML = `
+      <div style="text-align: center; color: var(--text-muted); padding: 25px;">
+        <i class="fa-regular fa-folder-open" style="font-size: 1.8rem; margin-bottom: 8px;"></i>
+        <p style="font-size: 0.88rem;">Belum ada materi tersimpan.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+  materials.forEach((item) => {
+    if (!item) return;
+    const card = document.createElement("div");
+    card.className = "material-card-item";
+    const weekText = item.week ? `Minggu ${item.week}` : "Modul";
+
+    card.innerHTML = `
+      <div class="material-info">
+        <h4>${escapeHTML(item.title || item.filename || "Modul Tanpa Judul")}</h4>
+        <div class="material-meta">
+          <span class="badge badge-primary">${weekText}</span>
+          <span><i class="fa-solid fa-book"></i> ${escapeHTML(item.course || "Sistem Digital")}</span>
+        </div>
+      </div>
+      <button class="btn-delete-item" title="Hapus Modul">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
+    `;
+
+    card.addEventListener("click", (e) => {
+      if (e.target.closest(".btn-delete-item")) return;
+      openMaterial(item.filename);
+    });
+
+    const delBtn = card.querySelector(".btn-delete-item");
+    if (delBtn) {
+      delBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        deleteMaterial(e, item.filename);
+      });
+    }
+
+    container.appendChild(card);
+  });
+}
+
+function setupSearchFilter() {
+  const searchInput = document.getElementById("searchInput");
+  if (!searchInput) return;
+
+  searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    const filtered = currentMaterialsData.filter(item =>
+      (item.title && item.title.toLowerCase().includes(query)) ||
+      (item.course && item.course.toLowerCase().includes(query))
+    );
+    renderMaterialsList(filtered);
+  });
+}
+
+async function openMaterial(filename) {
+  try {
+    const response = await fetch(`${API_URL}/media/${filename}`);
+    if (!response.ok) throw new Error("Gagal memuat materi.");
+    const mediaData = await response.json();
+    renderGeneratedMedia(mediaData);
+    showLearningPage();
+  } catch (error) {
+    alert(`Gagal membuka modul: ${error.message}`);
+  }
+}
+
+async function deleteMaterial(event, filename) {
+  event.stopPropagation();
+  if (!confirm("Hapus modul ini dari arsip?")) return;
+
+  try {
+    const response = await fetch(`${API_URL}/materials/${filename}`, { method: "DELETE" });
+    if (!response.ok) throw new Error("Gagal menghapus.");
+    loadWeeklyMaterials();
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+function setupUploadHandlers() {
+  const input = document.getElementById("pptInput");
+  const selectBtn = document.getElementById("selectFileButton");
+  const dropZone = document.getElementById("dropZone");
+  const processBtn = document.getElementById("processButton");
+
+  if (!input || !dropZone) return;
+
+  selectBtn.addEventListener("click", () => input.click());
+  input.addEventListener("change", (e) => handleSelectedFile(e.target.files[0]));
+
+  dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+  });
+
+  dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+
+  dropZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    handleSelectedFile(e.dataTransfer.files[0]);
+  });
+
+  if (processBtn) {
+    processBtn.addEventListener("click", uploadAndProcessFile);
+  }
+}
+
+function handleSelectedFile(file) {
+  if (!file) return;
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (ext !== "ppt" && ext !== "pptx") {
+    showStatus("File harus berformat .ppt atau .pptx!", true);
+    return;
+  }
+
+  selectedFile = file;
+  const infoBox = document.getElementById("fileInfo");
+  const processBtn = document.getElementById("processButton");
+
+  infoBox.style.display = "block";
+  infoBox.innerHTML = `<i class="fa-solid fa-file-powerpoint" style="color:var(--rose);"></i> <strong>${escapeHTML(file.name)}</strong> (${formatBytes(file.size)})`;
+  
+  processBtn.style.display = "inline-flex";
+  showStatus("File siap diolah AI.", false);
+}
+
+async function uploadAndProcessFile() {
+  if (!selectedFile) return;
+
+  const processBtn = document.getElementById("processButton");
+  const progressContainer = document.getElementById("progressContainer");
+  const progressFill = document.getElementById("progressBarFill");
+  const progressText = document.getElementById("progressText");
+  const weekSelect = document.getElementById("uploadWeekSelect");
+
+  processBtn.disabled = true;
+  progressContainer.style.display = "block";
+
+  let progress = 10;
+  progressFill.style.width = `${progress}%`;
+  progressText.textContent = "Mengunggah file PPT...";
+
+  const formData = new FormData();
+  formData.append("file", selectedFile);
+  if (weekSelect) formData.append("week", weekSelect.value);
+
+  try {
+    const interval = setInterval(() => {
+      if (progress < 85) {
+        progress += 15;
+        progressFill.style.width = `${progress}%`;
+        if (progress > 40) progressText.textContent = "Menganalisis konten & mengekstrak slide...";
+        if (progress > 70) progressText.textContent = "Menjadikan modul interaktif dengan AI...";
+      }
+    }, 500);
+
+    const response = await fetch(`${API_URL}/process`, {
+      method: "POST",
+      body: formData
+    });
+
+    clearInterval(interval);
+    const result = await response.json();
+
+    if (!response.ok || result.error) throw new Error(result.detail || result.error);
+
+    progressFill.style.width = "100%";
+    progressText.textContent = "Selesai!";
+
+    setTimeout(() => {
+      renderGeneratedMedia(result.media);
+      showLearningPage();
+      resetUploadForm();
+    }, 600);
+
+  } catch (error) {
+    showStatus(`Error: ${error.message}`, true);
+    processBtn.disabled = false;
+    progressContainer.style.display = "none";
+  }
+}
+
+function resetUploadForm() {
+  selectedFile = null;
+  document.getElementById("fileInfo").style.display = "none";
+  document.getElementById("progressContainer").style.display = "none";
+  document.getElementById("processButton").style.display = "none";
+  document.getElementById("processButton").disabled = false;
+  showStatus("", false);
+}
+
+function renderGeneratedMedia(media) {
+  if (!media) return;
+
+  document.getElementById("weekBadge").textContent = `Minggu ${media.week || 1}`;
+  document.getElementById("moduleTitleHeader").textContent = media.title || "Materi Sistem Digital";
+  document.title = `${media.title || "Modul"} - SISDIG AI`;
+
+  const menuContainer = document.getElementById("menuContainer");
+  menuContainer.innerHTML = "";
+
+  // 1. Menu Pendahuluan
+  const introBtn = document.createElement("button");
+  introBtn.className = "menu-btn active";
+  introBtn.innerHTML = '<i class="fa-solid fa-compass"></i> Pendahuluan';
+  introBtn.onclick = function() { switchSection("sec-intro", this); };
+  menuContainer.appendChild(introBtn);
+
+  // Filter section utama
+  const rawSections = Array.isArray(media.sections) ? media.sections : [];
+  const sections = rawSections.filter(sec => {
+    const title = (sec.title || "").toLowerCase();
+    return !title.includes("latihan soal");
+  });
+
+  // 2. Render Menu Sidebar
+  sections.forEach((sec, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "menu-btn";
+    btn.innerHTML = `<i class="fa-solid fa-layer-group"></i> ${escapeHTML(sec.title || `Sub-bab ${idx + 1}`)}`;
+    btn.onclick = function() { switchSection(`sec-${idx}`, this); };
+    menuContainer.appendChild(btn);
+  });
+
+  // 3. Menu Kuis
+  if (Array.isArray(media.activities) && media.activities.length > 0) {
+    const quizBtn = document.createElement("button");
+    quizBtn.className = "menu-btn";
+    quizBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Latihan Soal';
+    quizBtn.onclick = function() { switchSection("sec-quiz", this); };
+    menuContainer.appendChild(quizBtn);
+  }
+
+  const mainContent = document.getElementById("content");
+  mainContent.innerHTML = "";
+
+  // Content: Pendahuluan
+  const introSec = document.createElement("div");
+  introSec.id = "sec-intro";
+  introSec.className = "section-content active";
+  introSec.innerHTML = `
+    <span class="section-tag">OVERVIEW MODUL</span>
+    <h2 class="section-title">${escapeHTML(media.title || "Modul Pembelajaran")}</h2>
+    <p class="content-paragraph">${escapeHTML(media.description || "Selamat datang di modul interaktif Sistem Digital.")}</p>
+    <div class="objective-card">
+      <h3><i class="fa-solid fa-bullseye"></i> Capaian Pembelajaran</h3>
+      <ul id="objectiveList"></ul>
+    </div>
+  `;
+  mainContent.appendChild(introSec);
+
+  const objList = document.getElementById("objectiveList");
+  if (Array.isArray(media.learning_objectives)) {
+    media.learning_objectives.forEach(obj => {
+      const li = document.createElement("li");
+      li.textContent = obj;
+      objList.appendChild(li);
+    });
+  }
+
+  // Content: Sub-bab Materi
+  sections.forEach((sec, idx) => {
+    const secDiv = document.createElement("div");
+    secDiv.id = `sec-${idx}`;
+    secDiv.className = "section-content";
+    secDiv.innerHTML = `
+      <span class="section-tag">${(sec.type || "MATERI").toUpperCase()}</span>
+      <h2 class="section-title">${escapeHTML(sec.title || "Materi")}</h2>
+      <div class="sec-body"></div>
+    `;
+    mainContent.appendChild(secDiv);
+
+    const body = secDiv.querySelector(".sec-body");
+    if (sec.type === "interactive_conversion") {
+      renderInteractiveModuleConverter(body, idx);
+    } else {
+      const items = Array.isArray(sec.content) ? sec.content : [];
+      items.forEach(item => {
+        const text = typeof item === "string" ? item : (item.content || item.title || "");
+        if (!text) return;
+        const p = document.createElement("p");
+        p.className = "content-paragraph";
+        p.innerHTML = escapeHTML(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        body.appendChild(p);
+      });
+    }
+  });
+
+  // Content: Latihan Soal
+  if (Array.isArray(media.activities) && media.activities.length > 0) {
+    const quizSec = document.createElement("div");
+    quizSec.id = "sec-quiz";
+    quizSec.className = "section-content";
+    quizSec.innerHTML = renderQuizModule(media.activities);
+    mainContent.appendChild(quizSec);
+  }
+}
+
+function switchSection(secId, btn) {
+  document.querySelectorAll(".section-content").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".menu-btn").forEach(m => m.classList.remove("active"));
+
+  const target = document.getElementById(secId);
+  if (target) target.classList.add("active");
+  if (btn) btn.classList.add("active");
+}
+
+function renderInteractiveModuleConverter(container, idx) {
+  container.innerHTML = `
+    <div class="module-converter">
+      <h3><i class="fa-solid fa-calculator"></i> Simulator Konversi Interaktif</h3>
+      <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:15px;">
+        Masukkan nilai dan pilih basis untuk melihat hasil konversi lengkap beserta penjelasannya.
+      </p>
+      <div class="quick-converter">
+        <div class="input-group">
+          <label>Angka Input</label>
+          <input type="text" id="modInput-${idx}" placeholder="Input angka...">
+        </div>
+        <div class="input-group">
+          <label>Dari Basis</label>
+          <select id="modFrom-${idx}">
+            <option value="10">Desimal (10)</option>
+            <option value="2">Biner (2)</option>
+            <option value="8">Oktal (8)</option>
+            <option value="16">Heksadesimal (16)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Ke Basis</label>
+          <select id="modTo-${idx}">
+            <option value="2">Biner (2)</option>
+            <option value="8">Oktal (8)</option>
+            <option value="10">Desimal (10)</option>
+            <option value="16">Heksadesimal (16)</option>
+          </select>
+        </div>
+        <button class="btn btn-accent" onclick="runModuleConvert(${idx})">Konversi</button>
+      </div>
+      <div id="modResult-${idx}" class="quick-result-box" style="display:none;"></div>
+      <div id="modSteps-${idx}" class="steps-breakdown" style="display:none;"></div>
+    </div>
+  `;
+}
+
+function runModuleConvert(idx) {
+  const val = document.getElementById(`modInput-${idx}`).value.trim().toUpperCase();
+  const from = parseInt(document.getElementById(`modFrom-${idx}`).value);
+  const to = parseInt(document.getElementById(`modTo-${idx}`).value);
+  const resBox = document.getElementById(`modResult-${idx}`);
+  const stepsBox = document.getElementById(`modSteps-${idx}`);
+
+  if (!val) {
+    resBox.style.display = "block";
+    resBox.textContent = "Silakan masukkan angka terlebih dahulu.";
+    stepsBox.style.display = "none";
+    return;
+  }
+
+  const decimalValue = parseInt(val, from);
+  if (isNaN(decimalValue)) {
+    resBox.style.display = "block";
+    resBox.textContent = `Angka "${val}" tidak valid untuk basis ${from}!`;
+    stepsBox.style.display = "none";
+    return;
+  }
+
+  const finalResult = decimalValue.toString(to).toUpperCase();
+  resBox.style.display = "block";
+  resBox.innerHTML = `Hasil Konversi: <strong>${finalResult}</strong><sub>(${to})</sub>`;
+
+  let stepsHTML = '<div style="text-align: left; margin-top: 10px;">';
+  stepsHTML += '<h4 style="color: var(--accent); margin-bottom: 10px;">Tahapan Perhitungan Rinci:</h4>';
+
+  if (from !== 10) {
+    stepsHTML += `<p><strong>Langkah 1: Konversi Basis ${from} ke Desimal (Penjumlahan Bobot Posisi)</strong></p>`;
+    const digits = val.split("");
+    const len = digits.length;
+    let calculationTerms = [];
+    let detailedTerms = [];
+
+    for (let i = 0; i < len; i++) {
+      const char = digits[i];
+      const digitVal = parseInt(char, from);
+      const power = len - 1 - i;
+      const termVal = digitVal * Math.pow(from, power);
+      calculationTerms.push(`(${char} x ${from}<sup>${power}</sup>)`);
+      detailedTerms.push(`(${digitVal} x ${Math.pow(from, power)} = ${termVal})`);
+    }
+
+    stepsHTML += '<div style="background: rgba(0,0,0,0.04); padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.9em; margin-bottom: 12px;">';
+    stepsHTML += `Uraian Bit = ${calculationTerms.join(' + ')}<br>`;
+    stepsHTML += `Hitungan   = ${detailedTerms.join(' + ')}<br>`;
+    stepsHTML += `<strong style="color: var(--emerald);">Nilai Desimal = ${decimalValue}<sub>(10)</sub></strong>`;
+    stepsHTML += '</div>';
+  } else {
+    stepsHTML += `<p><strong>Langkah 1:</strong> Angka input sudah dalam format Desimal: <strong>${decimalValue}<sub>(10)</sub></strong></p>`;
+  }
+
+  if (to !== 10) {
+    stepsHTML += `<p><strong>Langkah 2: Konversi Desimal (${decimalValue}) ke Basis ${to} (Pembagian Berulang)</strong></p>`;
+    let temp = decimalValue;
+    let divisionSteps = [];
+
+    if (temp === 0) {
+      divisionSteps.push(`0 ÷ ${to} = 0 sisa 0`);
+    } else {
+      while (temp > 0) {
+        let remainder = temp % to;
+        let quotient = Math.floor(temp / to);
+        let remStr = remainder.toString(to).toUpperCase();
+        divisionSteps.push(`${temp} ÷ ${to} = <strong>${quotient}</strong>, sisa <strong style="color: var(--amber);">${remStr}</strong> (${remainder})`);
+        temp = quotient;
+      }
+    }
+
+    stepsHTML += '<ol style="background: rgba(0,0,0,0.04); padding: 10px 10px 10px 32px; border-radius: 6px; font-family: monospace; font-size: 0.9em; margin-bottom: 8px;">';
+    divisionSteps.forEach(s => {
+      stepsHTML += `<li>${s}</li>`;
+    });
+    stepsHTML += '</ol>';
+    stepsHTML += `<p style="font-size: 0.85em; color: var(--text-muted);"><em>*Catatan: Baca sisa pembagian dari bawah ke atas untuk hasil akhir: <strong>${finalResult}<sub>(${to})</sub></strong></em></p>`;
+  }
+
+  stepsHTML += '</div>';
+  stepsBox.style.display = "block";
+  stepsBox.innerHTML = stepsHTML;
+}
+
+function runQuickConvert() {
+  const val = document.getElementById("quickInput").value.trim().toUpperCase();
+  const from = parseInt(document.getElementById("quickFrom").value);
+  const to = parseInt(document.getElementById("quickTo").value);
+  const resBox = document.getElementById("quickResult");
+
+  if (!val) {
+    resBox.textContent = "Silakan masukkan angka terlebih dahulu.";
+    return;
+  }
+  const decimalVal = parseInt(val, from);
+  if (isNaN(decimalVal)) {
+    resBox.textContent = `Angka "${val}" tidak valid untuk basis ${from}!`;
+    return;
+  }
+  resBox.innerHTML = `Hasil Konversi: <strong>${decimalVal.toString(to).toUpperCase()}</strong><sub>(${to})</sub>`;
+}
+
+function renderQuizModule(activities) {
+  if (!activities || activities.length === 0) return "";
+  quizData = activities;
+  currentQuizIndex = 0;
+
+  return `
+    <div class="quiz-container" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 24px; margin-top: 10px; color: #0f172a;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px;">
+        <h3 style="margin:0; color: #2563eb; font-size: 1.25rem;"><i class="fa-solid fa-pen-to-square"></i> Latihan Soal & Evaluasi</h3>
+        <span id="quiz-progress" style="font-weight: 600; font-size: 0.95em; color: #475569;">Soal 1 dari ${quizData.length}</span>
+      </div>
+      <div id="quiz-body">
+        ${getQuizQuestionHTML(0)}
+      </div>
+    </div>
+  `;
+}
+
+function getQuizQuestionHTML(index) {
+  const q = quizData[index];
+  if (!q) return '<p style="color: #0f172a;">Tidak ada soal.</p>';
+
+  let optionsHTML = q.options.map((opt, i) => `
+    <label style="display: flex; align-items: center; padding: 12px 16px; margin: 10px 0; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; background: #f8fafc; color: #0f172a; font-weight: 500; font-size: 1rem;" class="opt-label">
+      <input type="radio" name="quiz-opt" value="${i}" style="margin-right: 12px; transform: scale(1.2);">
+      <span>${escapeHTML(opt)}</span>
+    </label>
+  `).join("");
+
+  return `
+    <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: #0f172a; line-height: 1.5;">${index + 1}. ${escapeHTML(q.question)}</p>
+    <div id="quiz-options">${optionsHTML}</div>
+    <button id="btn-submit-quiz" onclick="checkQuizAnswer(${index})" style="margin-top: 18px; padding: 10px 22px; background: #2563eb; color: #ffffff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem;">
+      Submit Jawaban
+    </button>
+    <div id="quiz-feedback" style="display: none; margin-top: 18px; padding: 14px; border-radius: 8px; font-size: 0.95rem;"></div>
+    <button id="btn-next-quiz" onclick="nextQuizQuestion()" style="display: none; margin-top: 18px; padding: 10px 22px; background: #059669; color: #ffffff; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem;">
+      Soal Selanjutnya →
+    </button>
+  `;
+}
+
+function checkQuizAnswer(index) {
+  const selected = document.querySelector('input[name="quiz-opt"]:checked');
+  const feedbackBox = document.getElementById("quiz-feedback");
+  const submitBtn = document.getElementById("btn-submit-quiz");
+  const nextBtn = document.getElementById("btn-next-quiz");
+
+  if (!selected) {
+    alert("Silakan pilih salah satu jawaban terlebih dahulu!");
+    return;
+  }
+
+  const userAnswer = parseInt(selected.value);
+  const q = quizData[index];
+  const isCorrect = userAnswer === q.correct;
+
+  document.querySelectorAll('input[name="quiz-opt"]').forEach(el => el.disabled = true);
+  submitBtn.style.display = "none";
+
+  const formattedExplanation = escapeHTML(q.explanation || "").replace(/\n/g, '<br>');
+  feedbackBox.style.display = "block";
+
+  if (isCorrect) {
+    feedbackBox.style.background = "#dcfce7";
+    feedbackBox.style.border = "1px solid #86efac";
+    feedbackBox.style.color = "#166534";
+    feedbackBox.innerHTML = `
+      <strong style="font-size: 1.05rem;">Jawaban Anda Benar!</strong>
+      <hr style="border:0; border-top:1px solid #86efac; margin:8px 0;">
+      <strong>Pembahasan / Tahapan Perhitungan:</strong><br>${formattedExplanation}
+    `;
+  } else {
+    feedbackBox.style.background = "#fee2e2";
+    feedbackBox.style.border = "1px solid #fca5a5";
+    feedbackBox.style.color = "#991b1b";
+    feedbackBox.innerHTML = `
+      <strong style="font-size: 1.05rem;">Jawaban Anda Salah.</strong><br>
+      Jawaban yang benar adalah: <strong>${escapeHTML(q.options[q.correct])}</strong>
+      <hr style="border:0; border-top:1px solid #fca5a5; margin:8px 0;">
+      <strong>Pembahasan / Tahapan Perhitungan:</strong><br>${formattedExplanation}
+    `;
+  }
+
+  if (index < quizData.length - 1) {
+    nextBtn.style.display = "inline-block";
+  } else {
+    nextBtn.style.display = "inline-block";
+    nextBtn.textContent = "Selesai Evaluasi";
+    nextBtn.onclick = function() {
+      alert("Selamat! Anda telah menyelesaikan seluruh latihan soal pada modul ini.");
+    };
+  }
+}
+
+function nextQuizQuestion() {
+  currentQuizIndex++;
+  if (currentQuizIndex < quizData.length) {
+    document.getElementById("quiz-progress").textContent = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+    document.getElementById("quiz-body").innerHTML = getQuizQuestionHTML(currentQuizIndex);
+  }
+}
+
+function showStatus(msg, isError) {
+  const status = document.getElementById("processStatus");
+  if (status) {
+    status.textContent = msg;
+    status.style.color = isError ? "var(--rose)" : "var(--emerald)";
+  }
+}
+
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function escapeHTML(str) {
+  if (typeof str !== "string") return str;
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+window.addEventListener("load", function() {
+  console.log("Memulai pemuatan arsip materi otomatis...");
+  if (typeof loadWeeklyMaterials === "function") {
+    loadWeeklyMaterials();
+  }
+});
+</script>
+</body>
+</html>
+<script src="script.js?v=10002"></script>
