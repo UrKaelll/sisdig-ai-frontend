@@ -1,4 +1,4 @@
-const API_URL = "https://crew-benefit-cruises-menus.trycloudflare.com";
+const API_URL = "https://sisdig-ai-backend.vercel.app";
 
 let selectedFile = null;
 let currentMaterialsData = [];
